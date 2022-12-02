@@ -23,3 +23,21 @@ You will have to implement this for the following pattern in the following order
 4. Implement using only async/await using the `readFile` method from `fs/promises`
 5. Implement using only EventEmitter, you will decorate the `readFile` method from `fs` to make it send event when data is read
 6. Implement using only eventApi and eventEmitter using the `createReadStream` method from `fs`
+
+Example of what could be a process using this method for the first implementation using callback : 
+
+```js
+const reader1 = createFileReader('file.json')
+reader1.onDataReady(data => {
+  console.log(`First time get data : ${data}`)
+  
+  // do any treatments 
+  
+  // try to read the same file a second time
+  const reader2 = createFileReader('file.json')
+  reader2.onDataReady(data => {
+    // this time data shall comes from a cache
+    console.log(`Second time get data : ${data}`)
+  })
+})
+```
